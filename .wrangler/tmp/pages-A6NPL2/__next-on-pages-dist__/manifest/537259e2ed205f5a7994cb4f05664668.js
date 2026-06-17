@@ -1,0 +1,1 @@
+var _={},t=(a,s,e)=>(_.__NEXT_FONT_MANIFEST=a.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/balutp3n0y/Downloads/dashboard/src/app/layout":["static/media/e4af272ccee01ff0-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}',_.__REACT_LOADABLE_MANIFEST=a.__REACT_LOADABLE_MANIFEST="{}",_);export{t as __getNamedExports};

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlexiDash - Main Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7f9fb",
+                        "primary": "#0058be",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-surface-variant": "#424754",
+                        "secondary": "#515f74",
+                        "surface-variant": "#e0e3e5",
+                        "on-background": "#191c1e",
+                        "on-secondary-container": "#57657b",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-tint": "#005ac2",
+                        "surface-container": "#eceef0",
+                        "background": "#f7f9fb",
+                        "on-primary-fixed": "#001a42",
+                        "surface-dim": "#d8dadc",
+                        "outline-variant": "#c2c6d6",
+                        "primary-container": "#2170e4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "secondary-fixed": "#d5e3fd",
+                        "on-tertiary-container": "#fffbff",
+                        "inverse-primary": "#adc6ff",
+                        "outline": "#727785",
+                        "on-surface": "#191c1e",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#fefcff",
+                        "on-tertiary-fixed": "#311400",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#d5e3fd",
+                        "tertiary": "#924700",
+                        "tertiary-container": "#b75b00",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffdcc6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "margin-page": "40px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "28px", "letterSpacing": "0", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f7f9fb; }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-surface bg-background">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-dim h-screen w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col h-full py-xl px-md z-50 hidden md:flex">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-inverse-primary tracking-tight">FlexiDash</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-base">Financial Overview</p>
+</div>
+<ul class="flex-1 space-y-sm">
+<li>
+<a class="flex items-center gap-sm px-sm py-xs rounded text-primary dark:text-inverse-primary font-bold border-r-2 border-primary bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-xs rounded text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Catalog &amp; Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-on-background docked full-width top-0 sticky z-40 border-b border-outline-variant dark:border-outline flex justify-between items-center h-16 px-margin-page ml-64 hidden md:flex">
+<div class="flex items-center">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">FlexiDash</span>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="pl-xl pr-sm py-xs border border-outline-variant rounded-lg bg-surface-container-lowest text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors duration-200 w-64" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-opacity duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex-shrink-0">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking directly at the camera. The lighting is soft and even, highlighting their features against a neutral, high-key background. The mood is approachable yet executive, fitting perfectly within a clean, modern SaaS light-mode interface. Minimalist aesthetic with focus on clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiK9UgfAzmyK1yQQnawTnNrXfeKuVUNYxz-79NbFg1RKpdxHVHc41jnNzX-osO-B-X1Odgv2zwF1Zzq0y6uF2P8P9URKOI8mHw5U_Hzj4jNglBBa5MwKB10zMQWF9kC-V1JTQSjuLQYBBi84owZ-tcv48rJLGNxjLt4qthjP_M-JhPpjABvKewyT5eXUyi1LB0Dj7-JaPtujQ3WQ7WVBTjZT-vDfyibVkiZA1ke_Mwq9GHZbVdLzthmDiDF6EfKh0CE4DYwCcFabnm"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 p-margin-page">
+<div class="max-w-6xl mx-auto space-y-xl">
+<!-- Page Header -->
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface tracking-tight">Overview</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-base">Welcome back. Here's your recent activity.</p>
+</div>
+<!-- Transaction Form Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-gutter">Log Transaction</h3>
+<form class="flex flex-wrap lg:flex-nowrap items-start gap-md">
+<!-- Product Dropdown (Expanded State) -->
+<div class="w-full lg:w-1/4 relative">
+<label class="block font-body-md text-body-md font-bold text-on-surface mb-xs">Product Name</label>
+<div class="relative">
+<button class="w-full text-left px-sm py-xs border border-primary rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface flex justify-between items-center ring-1 ring-primary focus:outline-none" type="button">
+<span>60-Min Massage Package</span>
+<span class="material-symbols-outlined text-primary" data-icon="expand_less">expand_less</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="absolute top-full left-0 w-full mt-base bg-surface-container-lowest border border-outline-variant rounded shadow-lg z-10">
+<ul class="py-xs">
+<li class="px-sm py-xs bg-surface-container-low text-primary font-medium cursor-pointer">60-Min Massage Package</li>
+<li class="px-sm py-xs text-on-surface hover:bg-surface-container-low cursor-pointer transition-colors duration-150">90-Min Deep Tissue</li>
+<li class="px-sm py-xs text-on-surface hover:bg-surface-container-low cursor-pointer transition-colors duration-150">Aromatherapy Add-on</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Revenue Input (Active State) -->
+<div class="w-full lg:w-1/6">
+<label class="block font-body-md text-body-md font-bold text-on-surface mb-xs">Revenue</label>
+<div class="relative">
+<span class="absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant font-data-mono text-data-mono">$</span>
+<input class="w-full pl-xl pr-sm py-xs border border-primary rounded bg-surface-container-lowest font-data-mono text-data-mono text-on-surface shadow-[0_0_0_2px_rgba(59,130,246,0.2)] focus:outline-none" type="text" value="85.00"/>
+</div>
+</div>
+<!-- Payment Method -->
+<div class="w-full lg:w-1/6">
+<label class="block font-body-md text-body-md font-bold text-on-surface mb-xs">Payment</label>
+<div class="relative">
+<select class="w-full px-sm py-xs border border-outline-variant rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface appearance-none focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+<option>Credit Card</option>
+<option>Cash</option>
+<option>Transfer</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Notes -->
+<div class="w-full lg:flex-1">
+<label class="block font-body-md text-body-md font-bold text-on-surface mb-xs">Notes</label>
+<input class="w-full px-sm py-xs border border-outline-variant rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors duration-200" placeholder="Add a note..." type="text"/>
+</div>
+<!-- Add Button -->
+<div class="w-full lg:w-auto self-end mt-4 lg:mt-0">
+<button class="w-full lg:w-auto px-lg py-xs bg-primary text-on-primary font-body-md text-body-md font-medium rounded hover:bg-surface-tint transition-colors duration-200 h-[34px] flex items-center justify-center" type="button">
+                            + Add Row
+                        </button>
+</div>
+</form>
+</section>
+<!-- Transaction History Table -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-gutter">Transaction History</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-md py-sm rounded-tl">Date</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-md py-sm">Product</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-md py-sm">Category</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-md py-sm text-right rounded-tr">Amount</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors duration-150">
+<td class="px-md py-md text-on-surface">Oct 24, 2023</td>
+<td class="px-md py-md text-on-surface font-medium">60-Min Massage Package</td>
+<td class="px-md py-md text-on-surface-variant">Services</td>
+<td class="px-md py-md font-data-mono text-data-mono text-on-surface text-right">$85.00</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors duration-150">
+<td class="px-md py-md text-on-surface">Oct 23, 2023</td>
+<td class="px-md py-md text-on-surface font-medium">Eucalyptus Essential Oil</td>
+<td class="px-md py-md text-on-surface-variant">Retail</td>
+<td class="px-md py-md font-data-mono text-data-mono text-on-surface text-right">$24.00</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors duration-150">
+<td class="px-md py-md text-on-surface">Oct 23, 2023</td>
+<td class="px-md py-md text-on-surface font-medium">90-Min Deep Tissue</td>
+<td class="px-md py-md text-on-surface-variant">Services</td>
+<td class="px-md py-md font-data-mono text-data-mono text-on-surface text-right">$120.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>
