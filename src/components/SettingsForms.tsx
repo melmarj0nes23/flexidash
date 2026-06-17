@@ -8,7 +8,8 @@ export default function SettingsForms({
   customFields, 
   createProductAction, 
   deleteProductAction, 
-  updateCustomFieldsAction 
+  updateCustomFieldsAction,
+  currencySymbol
 }: any) {
   const initialFields = (customFields || []).map((f: any) => typeof f === 'string' ? { name: f, type: 'text' } : f) as FieldDef[];
   
@@ -84,7 +85,7 @@ export default function SettingsForms({
             <div className="w-full md:w-32">
               <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Base Price</label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-500 dark:text-gray-400 text-sm">$</span>
+                <span className="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-500 dark:text-gray-400 text-sm">{currencySymbol}</span>
                 <input 
                   type="number" 
                   name="price" 
@@ -119,7 +120,7 @@ export default function SettingsForms({
                 products.map((p: any) => (
                   <tr key={p.id} className="border-b border-gray-100 dark:border-[#2a2c33] last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-[#121417] dark:hover:bg-gray-800/30">
                     <td className="p-3 text-sm font-bold text-gray-900 dark:text-white">{p.product_name}</td>
-                    <td className="p-3 text-sm text-gray-600 dark:text-gray-400">${p.unit_price.toFixed(2)}</td>
+                    <td className="p-3 text-sm text-gray-600 dark:text-gray-400">{currencySymbol}{p.unit_price.toFixed(2)}</td>
                     <td className="p-3 text-right">
                       <button 
                         onClick={() => deleteProductAction(p.id)}

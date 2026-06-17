@@ -18,6 +18,7 @@ export const passwordResets = sqliteTable('password_resets', {
 export const userMetadata = sqliteTable('user_metadata', {
   userId: text('user_id').primaryKey(),
   customFields: text('custom_fields'),
+  currency: text('currency').default('USD'),
 });
 
 export const products = sqliteTable('products', {

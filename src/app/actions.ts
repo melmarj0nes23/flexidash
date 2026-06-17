@@ -33,6 +33,13 @@ export async function updateCustomFieldsAction(fields: string[]) {
   revalidatePath("/");
 }
 
+export async function updateCurrencyAction(currency: string) {
+  const userId = await getUserId();
+  const { updateUserCurrency } = await import("@/lib/db");
+  await updateUserCurrency(userId, currency);
+  revalidatePath("/", "layout"); // Revalidate entire app to apply currency change
+}
+
 export async function logTransactionAction(formData: FormData) {
   const userId = await getUserId();
   const productIdRaw = formData.get("product_id") as string;

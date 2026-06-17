@@ -30,6 +30,19 @@ export async function saveUserMetadata(userId: string, customFields: any[]) {
     .onConflictDoUpdate({ target: userMetadata.userId, set: { customFields: JSON.stringify(customFields) } });
 }
 
+export async function getUserCurrency(userId: string): Promise<string> {
+  const db = getDb();
+  const [result] = await db.select({ currency: userMetadata.currency }).from(userMetadata).where(eq(userMetadata.userId, userId)).limit(1);
+  return result?.currency || 'USD';
+}
+
+export async function updateUserCurrency(userId: string, currency: string) {
+  const db = getDb();
+  await db.insert(userMetadata)
+    .values({ userId, currency })
+    .onConflictDoUpdate({ target: userMetadata.userId, set: { currency } });
+}
+
 export async function getProducts(userId: string) {
   const db = getDb();
   const res = await db.select().from(products).where(eq(products.userId, userId)).all();

@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
-import { getTransactions } from "@/lib/db";
+import { getTransactions, getUserCurrency } from "@/lib/db";
+import { getCurrencySymbol } from "@/components/CurrencySelector";
 import AnalyticsCharts from "@/components/AnalyticsCharts";
 import DateFilter from "@/components/DateFilter";
 
@@ -14,6 +15,8 @@ export default async function AnalyticsOverview({
   const session = await auth();
 
   const userId = session!.user!.id as string;
+  const currentCurrency = await getUserCurrency(userId);
+  const currencySymbol = getCurrencySymbol(currentCurrency);
   const range = params.range || "30d";
   
   let startDate: string | undefined = undefined;
@@ -121,7 +124,7 @@ export default async function AnalyticsOverview({
               <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
           </div>
-          <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 md:mb-2">${totalIncome.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+          <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 md:mb-2">{currencySymbol}{totalIncome.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
           <div className="text-xs md:text-sm font-medium text-green-600 flex items-center">
             <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             + Sales
@@ -135,7 +138,7 @@ export default async function AnalyticsOverview({
               <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
             </div>
           </div>
-          <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 md:mb-2">${totalExpenses.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+          <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 md:mb-2">{currencySymbol}{totalExpenses.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
           <div className="text-xs md:text-sm font-medium text-red-500 flex items-center">
             <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             - Costs
@@ -150,7 +153,7 @@ export default async function AnalyticsOverview({
             </div>
           </div>
           <div className={`text-2xl md:text-3xl font-bold mb-1 md:mb-2 ${netProfit >= 0 ? 'text-[#19c985]' : 'text-red-500'}`}>
-            ${netProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            {currencySymbol}{netProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
           </div>
           <div className="text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
             = Margin
@@ -158,7 +161,7 @@ export default async function AnalyticsOverview({
         </div>
       </div>
 
-      <AnalyticsCharts revenueOverTime={revenueOverTime} revenueByPayment={revenueByPayment} />
+      <AnalyticsCharts revenueOverTime={revenueOverTime} revenueByPayment={revenueByPayment} currencySymbol={currencySymbol} />
 
       {/* Top Products Table */}
       <div className="bg-white dark:bg-[#1b1d22] rounded-lg shadow-sm border border-gray-200 dark:border-[#2a2c33] overflow-hidden">
@@ -198,8 +201,8 @@ export default async function AnalyticsOverview({
                       {p.name}
                     </td>
                     <td className="p-4 text-sm text-gray-900 dark:text-white font-bold text-center">{p.units}</td>
-                    <td className="p-4 text-sm text-gray-600 dark:text-gray-400 text-center">${p.price.toFixed(2)}</td>
-                    <td className="p-4 text-sm font-bold text-gray-900 dark:text-white text-right">${p.revenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td className="p-4 text-sm text-gray-600 dark:text-gray-400 text-center">{currencySymbol}{p.price.toFixed(2)}</td>
+                    <td className="p-4 text-sm font-bold text-gray-900 dark:text-white text-right">{currencySymbol}{p.revenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td className="p-4 text-center">
                       {i % 3 !== 2 ? (
                         <svg className="w-4 h-4 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>

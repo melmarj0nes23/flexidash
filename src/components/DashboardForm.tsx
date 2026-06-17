@@ -21,7 +21,8 @@ export default function DashboardForm({
   action: any,
   updateAction?: any,
   initialData?: any,
-  isExpense?: boolean
+  isExpense?: boolean,
+  currencySymbol: string
 }) {
   const [selectedPrice, setSelectedPrice] = useState("");
   const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
@@ -111,7 +112,7 @@ export default function DashboardForm({
       <div className="flex-[1] min-w-[120px]">
         <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Amount</label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-500 dark:text-gray-400 text-sm">$</span>
+          <span className="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-500 dark:text-gray-400 text-sm">{currencySymbol}</span>
           <input 
             type="number" 
             name="price" 

@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
-import { getProducts, getUserMetadata, getTransactions, getTransactionCount } from "@/lib/db";
+import { getProducts, getUserMetadata, getTransactions, getTransactionCount, getUserCurrency } from "@/lib/db";
 import DashboardForm from "@/components/DashboardForm";
 import SearchBar from "@/components/SearchBar";
 import DeleteButton from "@/components/DeleteButton";
 import CsvExportButton from "@/components/CsvExportButton";
 import { logTransactionAction, deleteTransactionAction, updateTransactionAction } from "@/app/actions";
 import Link from "next/link";
+import { getCurrencySymbol } from "@/components/CurrencySelector";
 
 export const runtime = "edge";
 
@@ -20,6 +21,8 @@ export default async function EntryPage({
   
   const products = await getProducts(userId);
   const customFields = await getUserMetadata(userId);
+  const currentCurrency = await getUserCurrency(userId);
+  const currencySymbol = getCurrencySymbol(currentCurrency);
 
   // Normalize string[] to FieldDef[] for backward compatibility
   const normalizedFields = customFields.map((f: any) => typeof f === 'string' ? { name: f, type: 'text' } : f);
@@ -63,6 +66,7 @@ export default async function EntryPage({
           action={logTransactionAction} 
           updateAction={updateTransactionAction}
           initialData={initialData}
+          currencySymbol={currencySymbol}
         />
       </section>
 
@@ -103,7 +107,7 @@ export default async function EntryPage({
                       {normalizedFields.map((f: any) => (
                         <td key={f.name} className="p-4 text-sm text-gray-500 dark:text-gray-400">{extra[f.name] || "-"}</td>
                       ))}
-                      <td className="p-4 text-sm font-bold text-[#19c985] dark:text-[#19c985] text-right">+${t.price_charged.toFixed(2)}</td>
+                      <td className="p-4 text-sm font-bold text-[#19c985] dark:text-[#19c985] text-right">+{currencySymbol}{t.price_charged.toFixed(2)}</td>
                       <td className="p-4 text-sm text-right">
                         <div className="flex items-center justify-end space-x-2">
                           <a href={`/sales?edit=${t.id}`} className="text-[#19c985] hover:opacity-80 p-1 rounded transition-colors" title="Edit Sale">
