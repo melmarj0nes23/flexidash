@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { getTransactions, getUserCurrency } from "@/lib/db";
-import { getCurrencySymbol } from "@/components/CurrencySelector";
+import { getCurrencySymbol } from "@/lib/currency";
 import AnalyticsCharts from "@/components/AnalyticsCharts";
 import DateFilter from "@/components/DateFilter";
 

@@ -6,7 +6,7 @@ import CurrencySelector from "@/components/CurrencySelector";
 import { redirect } from "next/navigation";
 import { getUserCurrency } from "@/lib/db";
 
-import { getCurrencySymbol } from "@/components/CurrencySelector";
+import { getCurrencySymbol } from "@/lib/currency";
 
 export const runtime = "edge";
 

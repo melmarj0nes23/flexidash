@@ -6,7 +6,7 @@ import DeleteButton from "@/components/DeleteButton";
 import CsvExportButton from "@/components/CsvExportButton";
 import { logTransactionAction, deleteTransactionAction, updateTransactionAction } from "@/app/actions";
 import Link from "next/link";
-import { getCurrencySymbol } from "@/components/CurrencySelector";
+import { getCurrencySymbol } from "@/lib/currency";
 
 export const runtime = "edge";
 

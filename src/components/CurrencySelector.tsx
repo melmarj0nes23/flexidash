@@ -2,20 +2,7 @@
 
 import { useTransition } from "react";
 import { updateCurrencyAction } from "@/app/actions";
-
-const CURRENCIES = [
-  { code: "USD", symbol: "$" },
-  { code: "EUR", symbol: "€" },
-  { code: "GBP", symbol: "£" },
-  { code: "PHP", symbol: "₱" },
-  { code: "JPY", symbol: "¥" },
-  { code: "AUD", symbol: "A$" },
-  { code: "CAD", symbol: "C$" },
-];
-
-export function getCurrencySymbol(code: string): string {
-  return CURRENCIES.find((c) => c.code === code)?.symbol || "$";
-}
+import { currencies } from "@/lib/currency";
 
 export default function CurrencySelector({ currentCurrency }: { currentCurrency: string }) {
   const [isPending, startTransition] = useTransition();
@@ -40,7 +27,7 @@ export default function CurrencySelector({ currentCurrency }: { currentCurrency:
           disabled={isPending}
           className="appearance-none bg-white dark:bg-[#1b1d22] border border-gray-300 dark:border-[#2a2c33] text-gray-700 dark:text-gray-300 py-1.5 pl-3 pr-8 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#19c985] focus:border-transparent disabled:opacity-50 transition-colors"
         >
-          {CURRENCIES.map((c) => (
+          {currencies.map((c) => (
             <option key={c.code} value={c.code}>
               {c.code} ({c.symbol})
             </option>

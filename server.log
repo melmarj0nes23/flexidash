@@ -1,0 +1,56 @@
+
+> temp-app@0.1.0 start
+> next start
+
+▲ Next.js 16.2.9
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.109:3000
+✓ Ready in 123ms
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:51495
+    at cA (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:54190)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+⨯ TypeError: Cannot read properties of undefined (reading 'id')
+    at h (.next/server/edge/chunks/ssr/[root-of-the-server]__0gtxuk5._.js:2:2956) {
+  digest: '1286807916'
+}
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:51495
+    at cA (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:54190)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+⨯ TypeError: Cannot read properties of undefined (reading 'id')
+    at h (.next/server/edge/chunks/ssr/[root-of-the-server]__0gtxuk5._.js:2:2956) {
+  digest: '1286807916'
+}
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:51495
+    at cA (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/node_modules_1sn-bpd._.js:861:54190)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[31m[auth][error][0m UntrustedHost: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost
+    at /Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:51469
+    at fE (/Users/balutp3n0y/Downloads/dashboard/.next/server/edge/chunks/ssr/_0jn6cwq._.js:404:54134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+⨯ TypeError: Cannot read properties of undefined (reading 'id')
+    at h (.next/server/edge/chunks/ssr/[root-of-the-server]__0gtxuk5._.js:2:2956) {
+  digest: '1286807916'
+}
