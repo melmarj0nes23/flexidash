@@ -1,11 +1,17 @@
-import { getRequestContext } from "@cloudflare/next-on-pages";
-import { drizzle } from 'drizzle-orm/d1';
+import { createClient } from "@libsql/client";
+import { drizzle } from 'drizzle-orm/libsql';
 import { userMetadata, products, transactions } from './schema';
 import { eq, and, or, desc, gte, lte, count, like } from 'drizzle-orm';
 
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+});
+
+const db = drizzle(client);
+
 export function getDb() {
-  const ctx = getRequestContext();
-  return drizzle(ctx.env.DB);
+  return db;
 }
 
 export async function getUserMetadata(userId: string) {
@@ -21,8 +27,7 @@ export async function saveUserMetadata(userId: string, customFields: any[]) {
   const db = getDb();
   await db.insert(userMetadata)
     .values({ userId, customFields: JSON.stringify(customFields) })
-    .onConflictDoUpdate({ target: userMetadata.userId, set: { customFields: JSON.stringify(customFields) } })
-    .run();
+    .onConflictDoUpdate({ target: userMetadata.userId, set: { customFields: JSON.stringify(customFields) } });
 }
 
 export async function getProducts(userId: string) {
@@ -37,12 +42,12 @@ export async function getProducts(userId: string) {
 
 export async function addProduct(userId: string, productName: string, unitPrice: number) {
   const db = getDb();
-  await db.insert(products).values({ userId, productName, unitPrice }).run();
+  await db.insert(products).values({ userId, productName, unitPrice });
 }
 
 export async function removeProduct(userId: string, productId: number) {
   const db = getDb();
-  await db.delete(products).where(and(eq(products.id, productId), eq(products.userId, userId))).run();
+  await db.delete(products).where(and(eq(products.id, productId), eq(products.userId, userId)));
 }
 
 export async function addTransaction(userId: string, productId: number | null, manualProductName: string | null, priceCharged: number, extraData: Record<string, string>) {
@@ -53,7 +58,7 @@ export async function addTransaction(userId: string, productId: number | null, m
     manualProductName,
     priceCharged,
     extraData: JSON.stringify(extraData)
-  }).run();
+  });
 }
 
 export async function getTransactionCount(userId: string, options?: { searchQuery?: string, type?: 'income' | 'expense' }) {
@@ -153,7 +158,7 @@ export async function getTransactions(userId: string, options?: { limit?: number
 
 export async function removeTransaction(userId: string, transactionId: number) {
   const db = getDb();
-  await db.delete(transactions).where(and(eq(transactions.id, transactionId), eq(transactions.userId, userId))).run();
+  await db.delete(transactions).where(and(eq(transactions.id, transactionId), eq(transactions.userId, userId)));
 }
 
 export async function updateTransaction(userId: string, transactionId: number, productId: number | null, manualProductName: string | null, priceCharged: number, extraData: Record<string, string>) {
@@ -163,5 +168,5 @@ export async function updateTransaction(userId: string, transactionId: number, p
     manualProductName,
     priceCharged,
     extraData: JSON.stringify(extraData)
-  }).where(and(eq(transactions.id, transactionId), eq(transactions.userId, userId))).run();
+  }).where(and(eq(transactions.id, transactionId), eq(transactions.userId, userId)));
 }

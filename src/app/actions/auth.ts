@@ -17,7 +17,7 @@ export async function registerUser(formData: FormData) {
   if (!email || !password) return { error: "Missing fields" };
   
   const db = getDb();
-  const existing = await db.select().from(users).where(eq(users.email, email)).get();
+  const [existing] = await db.select().from(users).where(eq(users.email, email)).limit(1);
   if (existing) {
     return { error: "An account with this email already exists. Please log in with Google, or reset your password." };
   }
@@ -30,7 +30,7 @@ export async function registerUser(formData: FormData) {
     email,
     name,
     passwordHash: hash
-  }).run();
+  });
   
   redirect("/login?registered=true");
 }
@@ -41,7 +41,7 @@ export async function requestPasswordReset(formData: FormData) {
   
   const db = getDb();
   // We still query the user but we don't leak whether they exist in the UI response
-  const user = await db.select().from(users).where(eq(users.email, email)).get();
+  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
   
   if (user) {
     const token = crypto.randomUUID();
@@ -49,7 +49,7 @@ export async function requestPasswordReset(formData: FormData) {
     
     await db.insert(passwordResets).values({
       token, email, expiresAt
-    }).run();
+    });
     
     // In production, use your actual domain environment variable
     const resetLink = `http://localhost:3000/reset-password?token=${token}`;
@@ -77,7 +77,7 @@ export async function resetPassword(formData: FormData) {
   if (!token || !password) return { error: "Missing fields" };
   
   const db = getDb();
-  const reset = await db.select().from(passwordResets).where(eq(passwordResets.token, token)).get();
+  const [reset] = await db.select().from(passwordResets).where(eq(passwordResets.token, token)).limit(1);
   
   if (!reset) return { error: "Invalid token" };
   if (reset.expiresAt < Date.now()) return { error: "Token expired" };
@@ -85,10 +85,10 @@ export async function resetPassword(formData: FormData) {
   const hash = await hashPassword(password);
   
   // Update the user's password
-  await db.update(users).set({ passwordHash: hash }).where(eq(users.email, reset.email)).run();
+  await db.update(users).set({ passwordHash: hash }).where(eq(users.email, reset.email));
   
   // Consume the token so it can't be reused
-  await db.delete(passwordResets).where(eq(passwordResets.token, token)).run();
+  await db.delete(passwordResets).where(eq(passwordResets.token, token));
   
   return { success: true };
 }
