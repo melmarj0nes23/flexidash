@@ -14,7 +14,8 @@ export default function DashboardForm({
   action, 
   updateAction,
   initialData,
-  isExpense 
+  isExpense,
+  currencySymbol
 }: { 
   products: any[], 
   customFields: FieldDef[], 
