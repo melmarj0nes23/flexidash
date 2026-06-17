@@ -55,7 +55,7 @@ export default function AnalyticsCharts({
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' 
                 }}
                 itemStyle={{ color: '#19c985', fontWeight: 'bold' }}
-                formatter={(value: any, name: string) => [`$${Number(value).toFixed(2)}`, name === 'income' ? 'Income' : 'Expense']}
+                formatter={(value: any, name: any) => [`$${Number(value).toFixed(2)}`, name === 'income' ? 'Income' : 'Expense']}
               />
               <Area type="monotone" dataKey="income" name="income" stroke="#19c985" strokeWidth={3} fillOpacity={1} fill="url(#colorIncome)" />
               <Area type="monotone" dataKey="expense" name="expense" stroke="#ef4444" strokeWidth={3} fillOpacity={1} fill="url(#colorExpense)" />
