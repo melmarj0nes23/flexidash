@@ -31,7 +31,7 @@ const authMiddleware = auth((req) => {
 
 export default async function middleware(req: NextRequest, event: any) {
   if (ratelimit) {
-    const ip = req.headers.get("cf-connecting-ip") || req.headers.get("x-forwarded-for") || req.ip || "127.0.0.1";
+    const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "127.0.0.1";
     
     const { success, limit, remaining, reset } = await ratelimit.limit(ip);
     

@@ -6,4 +6,4 @@ pages_build_output_dir = ".vercel/output/static"
 [[d1_databases]]
 binding = "DB"
 database_name = "flexidash-db"
-database_id = "local-mock-id"
+database_id = "d4af5455-4da0-4b99-ab51-aef04d647790"
