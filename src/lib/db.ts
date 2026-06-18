@@ -1,6 +1,6 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from 'drizzle-orm/libsql';
-import { userMetadata, products, transactions } from './schema';
+import { userMetadata, products, transactions, users } from './schema';
 import { eq, and, or, desc, gte, lte, count, like } from 'drizzle-orm';
 
 const client = createClient({
@@ -202,4 +202,9 @@ export async function updateTransaction(userId: string, transactionId: number, p
     priceCharged,
     extraData: JSON.stringify(extraData)
   }).where(and(eq(transactions.id, transactionId), eq(transactions.userId, userId)));
+}
+
+export async function updateUserPassword(userId: string, newHash: string) {
+  const db = getDb();
+  await db.update(users).set({ passwordHash: newHash }).where(eq(users.id, userId));
 }

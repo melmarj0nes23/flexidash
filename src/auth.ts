@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { getDb } from "@/lib/db";
 import { users } from "@/lib/schema";
 import { eq } from "drizzle-orm";
-import { verifyPassword } from "@/lib/crypto";
+import { verifyPassword, hashPassword } from "@/lib/crypto";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -19,8 +19,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const user = await db.select().from(users).where(eq(users.email, credentials.email as string)).get();
         if (!user || !user.passwordHash) return null;
         
-        const isValid = await verifyPassword(credentials.password as string, user.passwordHash);
-        if (!isValid) return null;
+        const verifyResult = await verifyPassword(credentials.password as string, user.passwordHash);
+        if (!verifyResult.isValid) return null;
+        
+        if (verifyResult.needsUpgrade) {
+          const newHash = await hashPassword(credentials.password as string);
+          const { updateUserPassword } = await import("@/lib/db");
+          await updateUserPassword(user.id, newHash);
+        }
         
         return {
           id: user.id,
