@@ -55,7 +55,7 @@ export default async function EntryPage({
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Sales Entry</h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Log new sales transactions and keep track of your revenue.</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
           <CsvImportModal isExpense={false} customFields={normalizedFields} />
           <CsvExportButton />
         </div>
