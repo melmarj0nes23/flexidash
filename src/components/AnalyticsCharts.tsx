@@ -22,7 +22,7 @@ export default function AnalyticsCharts({
       <div className="lg:col-span-2 bg-white dark:bg-[#1b1d22] p-6 rounded-lg shadow-sm border border-gray-200 dark:border-[#2a2c33] flex flex-col">
         <h2 className="text-xl font-bold mb-6 dark:text-white">Revenue Overview</h2>
         <div className="flex-1 w-full min-h-[256px]">
-          <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <AreaChart data={revenueOverTime} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
               <defs>
                 <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
@@ -69,7 +69,7 @@ export default function AnalyticsCharts({
       <div className="bg-white dark:bg-[#1b1d22] p-6 rounded-lg shadow-sm border border-gray-200 dark:border-[#2a2c33]">
         <h2 className="text-xl font-bold mb-6 dark:text-white">Top Products</h2>
         <div className="h-48 relative">
-          <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <PieChart>
               <Pie
                 data={revenueByPayment}

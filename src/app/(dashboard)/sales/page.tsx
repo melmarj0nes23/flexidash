@@ -7,6 +7,7 @@ import CsvExportButton from "@/components/CsvExportButton";
 import { logTransactionAction, deleteTransactionAction, updateTransactionAction } from "@/app/actions";
 import Link from "next/link";
 import { getCurrencySymbol } from "@/lib/currency";
+import ReceiptButton from "@/components/ReceiptButton";
 
 export const runtime = "edge";
 
@@ -110,6 +111,12 @@ export default async function EntryPage({
                       <td className="p-4 text-sm font-bold text-[#19c985] dark:text-[#19c985] text-right">+{currencySymbol}{t.price_charged.toFixed(2)}</td>
                       <td className="p-4 text-sm text-right">
                         <div className="flex items-center justify-end space-x-2">
+                          <ReceiptButton 
+                            transaction={t} 
+                            currencySymbol={currencySymbol} 
+                            isExpense={false} 
+                            customFields={normalizedFields} 
+                          />
                           <a href={`/sales?edit=${t.id}`} className="text-[#19c985] hover:opacity-80 p-1 rounded transition-colors" title="Edit Sale">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                           </a>
