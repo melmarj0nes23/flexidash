@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig: any = {
   // empty standard config
-  experimental: {
-    allowedDevOrigins: ['192.168.1.109', 'localhost']
-  }
+  allowedDevOrigins: ['192.168.1.109', 'localhost']
 };
 
 export default nextConfig;
