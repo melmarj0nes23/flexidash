@@ -83,13 +83,13 @@ export default async function EntryPage({
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-[#121417] border-b border-gray-200 dark:border-[#2a2c33]">
-                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
-                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
+                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">Date</th>
+                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">Product</th>
                 {normalizedFields.map((f: any) => (
-                  <th key={f.name} className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{f.name}</th>
+                  <th key={f.name} className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">{f.name}</th>
                 ))}
-                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Amount</th>
-                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Actions</th>
+                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right whitespace-nowrap">Amount</th>
+                <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -107,12 +107,12 @@ export default async function EntryPage({
                   return (
                     <tr key={t.id} className="border-b border-gray-100 dark:border-[#2a2c33] last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-[#121417] transition-colors">
                       <td className="p-4 text-sm text-gray-700 dark:text-gray-300 font-medium whitespace-nowrap">{formattedDate}</td>
-                      <td className="p-4 text-sm text-gray-900 dark:text-white font-bold">{t.manual_product_name || t.product_name}</td>
+                      <td className="p-4 text-sm text-gray-900 dark:text-white font-bold whitespace-nowrap">{t.manual_product_name || t.product_name}</td>
                       {normalizedFields.map((f: any) => (
-                        <td key={f.name} className="p-4 text-sm text-gray-500 dark:text-gray-400">{extra[f.name] || "-"}</td>
+                        <td key={f.name} className="p-4 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">{extra[f.name] || "-"}</td>
                       ))}
-                      <td className="p-4 text-sm font-bold text-[#19c985] dark:text-[#19c985] text-right">+{currencySymbol}{t.price_charged.toFixed(2)}</td>
-                      <td className="p-4 text-sm text-right">
+                      <td className="p-4 text-sm font-bold text-[#19c985] dark:text-[#19c985] text-right whitespace-nowrap">{currencySymbol}{t.price_charged.toFixed(2)}</td>
+                      <td className="p-4 text-sm text-right whitespace-nowrap">
                         <div className="flex items-center justify-end space-x-2">
                           <ReceiptButton 
                             transaction={t} 
