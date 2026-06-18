@@ -4,6 +4,7 @@ import DashboardForm from "@/components/DashboardForm";
 import SearchBar from "@/components/SearchBar";
 import DeleteButton from "@/components/DeleteButton";
 import CsvExportButton from "@/components/CsvExportButton";
+import CsvImportModal from "@/components/CsvImportModal";
 import { logTransactionAction, deleteTransactionAction, updateTransactionAction } from "@/app/actions";
 import Link from "next/link";
 import { getCurrencySymbol } from "@/lib/currency";
@@ -54,7 +55,10 @@ export default async function EntryPage({
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Sales Entry</h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Log new sales transactions and keep track of your revenue.</p>
         </div>
-        <CsvExportButton />
+        <div className="flex items-center gap-2">
+          <CsvImportModal isExpense={false} customFields={normalizedFields} />
+          <CsvExportButton />
+        </div>
       </header>
 
       <section className="bg-white dark:bg-[#1b1d22] p-6 rounded-lg shadow-sm border border-gray-200 dark:border-[#2a2c33]">

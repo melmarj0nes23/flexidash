@@ -74,6 +74,26 @@ export async function addTransaction(userId: string, productId: number | null, m
   });
 }
 
+export async function addTransactionsBulk(userId: string, txs: { manualProductName: string, priceCharged: number, extraData: Record<string, string>, createdAt?: string }[]) {
+  const db = getDb();
+  if (txs.length === 0) return;
+  
+  const values = txs.map(t => ({
+    userId,
+    manualProductName: t.manualProductName,
+    priceCharged: t.priceCharged,
+    extraData: JSON.stringify(t.extraData),
+    ...(t.createdAt ? { createdAt: t.createdAt } : {})
+  }));
+
+  // Chunk array to avoid SQLite limits
+  const chunkSize = 500;
+  for (let i = 0; i < values.length; i += chunkSize) {
+    const chunk = values.slice(i, i + chunkSize);
+    await db.insert(transactions).values(chunk);
+  }
+}
+
 export async function getTransactionCount(userId: string, options?: { searchQuery?: string, type?: 'income' | 'expense' }) {
   const db = getDb();
   let conditions = [eq(transactions.userId, userId)];

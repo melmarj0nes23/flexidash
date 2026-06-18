@@ -96,3 +96,10 @@ export async function updateTransactionAction(transactionId: number, formData: F
   await updateTransaction(userId, transactionId, productId, manualProductName, priceCharged, extraData);
   revalidatePath("/");
 }
+
+export async function bulkImportTransactionsAction(txs: { manualProductName: string, priceCharged: number, extraData: Record<string, string>, createdAt?: string }[]) {
+  const userId = await getUserId();
+  const { addTransactionsBulk } = await import("@/lib/db");
+  await addTransactionsBulk(userId, txs);
+  revalidatePath("/");
+}
