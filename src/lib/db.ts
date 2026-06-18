@@ -208,3 +208,26 @@ export async function updateUserPassword(userId: string, newHash: string) {
   const db = getDb();
   await db.update(users).set({ passwordHash: newHash }).where(eq(users.id, userId));
 }
+
+export async function getUserBudgets(userId: string) {
+  const db = getDb();
+  const result = await db.select({ 
+    monthlySalesGoal: userMetadata.monthlySalesGoal, 
+    monthlyExpenseBudget: userMetadata.monthlyExpenseBudget 
+  }).from(userMetadata).where(eq(userMetadata.userId, userId)).get();
+  
+  return {
+    monthlySalesGoal: result?.monthlySalesGoal || 0,
+    monthlyExpenseBudget: result?.monthlyExpenseBudget || 0,
+  };
+}
+
+export async function updateUserBudgets(userId: string, monthlySalesGoal: number, monthlyExpenseBudget: number) {
+  const db = getDb();
+  await db.insert(userMetadata)
+    .values({ userId, monthlySalesGoal, monthlyExpenseBudget })
+    .onConflictDoUpdate({ 
+      target: userMetadata.userId, 
+      set: { monthlySalesGoal, monthlyExpenseBudget } 
+    });
+}

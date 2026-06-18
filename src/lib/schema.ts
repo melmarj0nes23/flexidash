@@ -19,6 +19,8 @@ export const userMetadata = sqliteTable('user_metadata', {
   userId: text('user_id').primaryKey(),
   customFields: text('custom_fields'),
   currency: text('currency').default('USD'),
+  monthlySalesGoal: real('monthly_sales_goal'),
+  monthlyExpenseBudget: real('monthly_expense_budget'),
 });
 
 export const products = sqliteTable('products', {

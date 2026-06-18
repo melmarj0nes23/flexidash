@@ -1,9 +1,12 @@
 import { auth } from "@/auth";
-import { getTransactions, getUserCurrency } from "@/lib/db";
+import { getTransactions, getUserCurrency, getUserBudgets } from "@/lib/db";
 import { getCurrencySymbol } from "@/lib/currency";
 import AnalyticsCharts from "@/components/AnalyticsCharts";
 import DateFilter from "@/components/DateFilter";
+import BudgetProgressWidgets from "@/components/BudgetProgressWidgets";
+import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
 
 export default async function AnalyticsOverview({
   searchParams
@@ -16,20 +19,27 @@ export default async function AnalyticsOverview({
   const userId = session!.user!.id as string;
   const currentCurrency = await getUserCurrency(userId);
   const currencySymbol = getCurrencySymbol(currentCurrency);
-  const range = params.range || "30d";
+  const budgets = await getUserBudgets(userId);
+  
+  const cookieStore = await cookies();
+  const defaultRange = cookieStore.get("dashboard_date_filter")?.value || "this_month";
+  const range = params.range || defaultRange;
   
   let startDate: string | undefined = undefined;
   let endDate: string | undefined = undefined;
   const now = new Date();
-  if (range === "7d") {
+  
+  if (range === "this_week") {
     const d = new Date();
-    d.setDate(d.getDate() - 7);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+    d.setDate(diff);
+    d.setHours(0, 0, 0, 0);
     startDate = d.toISOString();
-  } else if (range === "30d") {
-    const d = new Date();
-    d.setDate(d.getDate() - 30);
+  } else if (range === "this_month") {
+    const d = new Date(now.getFullYear(), now.getMonth(), 1);
     startDate = d.toISOString();
-  } else if (range === "year") {
+  } else if (range === "this_year") {
     const d = new Date(now.getFullYear(), 0, 1);
     startDate = d.toISOString();
   } else if (range === "custom") {
@@ -85,6 +95,19 @@ export default async function AnalyticsOverview({
 
   const netProfit = totalIncome - totalExpenses;
 
+  // Calculate current month's totals specifically for the Budget widget
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+  const currentMonthTransactions = await getTransactions(userId, { startDate: startOfMonth });
+  let currentMonthIncome = 0;
+  let currentMonthExpenses = 0;
+  currentMonthTransactions.forEach((t: any) => {
+    if (t.price_charged >= 0) {
+      currentMonthIncome += t.price_charged;
+    } else {
+      currentMonthExpenses += Math.abs(t.price_charged);
+    }
+  });
+
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const revenueOverTime = daysOfWeek.map(day => ({
     name: day,
@@ -111,8 +134,19 @@ export default async function AnalyticsOverview({
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Here is what is happening with your business today.</p>
         </div>
-        <DateFilter />
+        <DateFilter initialRange={range} initialStart={params.start || ""} initialEnd={params.end || ""} />
       </header>
+
+      {/* Financial Goals & Budgets Widget */}
+      {(budgets.monthlySalesGoal > 0 || budgets.monthlyExpenseBudget > 0) && (
+        <BudgetProgressWidgets 
+          salesGoal={budgets.monthlySalesGoal} 
+          expenseBudget={budgets.monthlyExpenseBudget} 
+          currentIncome={currentMonthIncome} 
+          currentExpenses={currentMonthExpenses} 
+          currencySymbol={currencySymbol} 
+        />
+      )}
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6">

@@ -40,6 +40,14 @@ export async function updateCurrencyAction(currency: string) {
   revalidatePath("/", "layout"); // Revalidate entire app to apply currency change
 }
 
+export async function updateBudgetsAction(monthlySalesGoal: number, monthlyExpenseBudget: number) {
+  const userId = await getUserId();
+  const { updateUserBudgets } = await import("@/lib/db");
+  await updateUserBudgets(userId, monthlySalesGoal, monthlyExpenseBudget);
+  revalidatePath("/settings");
+  revalidatePath("/");
+}
+
 export async function logTransactionAction(formData: FormData) {
   const userId = await getUserId();
   const productIdRaw = formData.get("product_id") as string;

@@ -3,18 +3,27 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function DateFilter() {
+export default function DateFilter({ 
+  initialRange = "this_month", 
+  initialStart = "", 
+  initialEnd = "" 
+}: { 
+  initialRange?: string;
+  initialStart?: string;
+  initialEnd?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentRange = searchParams.get("range") || "30d";
-  const startParam = searchParams.get("start") || "";
-  const endParam = searchParams.get("end") || "";
+  const currentRange = searchParams.get("range") || initialRange;
+  const startParam = searchParams.get("start") || initialStart;
+  const endParam = searchParams.get("end") || initialEnd;
 
   const [startDate, setStartDate] = useState(startParam);
   const [endDate, setEndDate] = useState(endParam);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value;
+    document.cookie = `dashboard_date_filter=${val}; path=/; max-age=31536000`;
     if (val === "custom") {
       router.push(`/?range=custom`);
     } else {
@@ -24,6 +33,7 @@ export default function DateFilter() {
 
   const applyCustomDate = () => {
     if (startDate && endDate) {
+      document.cookie = `dashboard_date_filter=custom; path=/; max-age=31536000`;
       router.push(`/?range=custom&start=${startDate}&end=${endDate}`);
     }
   };
@@ -61,9 +71,9 @@ export default function DateFilter() {
           onChange={handleChange}
           className="w-full sm:w-auto appearance-none bg-white dark:bg-[#1b1d22] border border-gray-300 dark:border-[#2a2c33] text-gray-700 dark:text-gray-300 py-2 pl-10 pr-8 rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-1 focus:ring-[#19c985]"
         >
-          <option value="7d">Last 7 Days</option>
-          <option value="30d">Last 30 Days</option>
-          <option value="year">This Year</option>
+          <option value="this_week">This Week</option>
+          <option value="this_month">This Month</option>
+          <option value="this_year">This Year</option>
           <option value="custom">Custom Range</option>
         </select>
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
