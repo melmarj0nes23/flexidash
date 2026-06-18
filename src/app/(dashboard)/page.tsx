@@ -4,7 +4,6 @@ import { getCurrencySymbol } from "@/lib/currency";
 import AnalyticsCharts from "@/components/AnalyticsCharts";
 import DateFilter from "@/components/DateFilter";
 
-export const runtime = "edge";
 
 export default async function AnalyticsOverview({
   searchParams

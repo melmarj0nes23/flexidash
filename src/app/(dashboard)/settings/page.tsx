@@ -8,7 +8,6 @@ import { getUserCurrency } from "@/lib/db";
 
 import { getCurrencySymbol } from "@/lib/currency";
 
-export const runtime = "edge";
 
 export default async function SettingsPage() {
   const session = await auth();

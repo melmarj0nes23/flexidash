@@ -10,7 +10,6 @@ import Link from "next/link";
 import { getCurrencySymbol } from "@/lib/currency";
 import ReceiptButton from "@/components/ReceiptButton";
 
-export const runtime = "edge";
 
 export default async function EntryPage({
   searchParams

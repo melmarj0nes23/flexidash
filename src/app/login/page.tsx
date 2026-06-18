@@ -1,7 +1,6 @@
 import CredentialsForm from "@/components/CredentialsForm";
 import GridGlowBackground from "@/components/ui/grid-glow-background";
 
-export const runtime = "edge";
 
 export default function LoginPage() {
   return (
